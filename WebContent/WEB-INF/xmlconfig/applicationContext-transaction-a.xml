@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE beans PUBLIC      
+"-//SPRING//DTD BEAN//EN"     
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+    <!-- transaction -->
+    
+    <bean id="pgsqlTestTransaction"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="target" ref="pgsqlTestDao" />
+        <property name="transactionAttributes">
+        <props>
+        <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+        </props>
+        </property>
+    </bean>
+    
+    <bean id="functionTransaction"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="target" ref="testBiz" />
+        <property name="transactionAttributes">
+        <props>
+        <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+        </props>
+        </property>
+    </bean>
+    
+    <bean id="loginTransaction"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="target" ref="loginBiz" />
+        <property name="transactionAttributes">
+        <props>
+        <prop key="*">PROPAGATION_REQUIRED</prop>
+        </props>
+        </property>
+    </bean>
+ 
+</beans>

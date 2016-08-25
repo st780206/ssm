@@ -1,0 +1,443 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0044)http://www.cnblogs.com/yjmyzz/p/3988114.html -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><HTML 
+lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"><HEAD><META 
+content="IE=10.0000" http-equiv="X-UA-Compatible">
+ 
+<META http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<TITLE>log4j2 与 spring mvc整合 - 菩提树下的杨过 - 博客园</TITLE> <LINK href="log4j2%20与%20spring%20mvc整合.files/blog-common.css" 
+rel="stylesheet" type="text/css"> <LINK id="MainCss" href="log4j2%20与%20spring%20mvc整合.files/bundle-SimpleBlue.css" 
+rel="stylesheet" type="text/css"> <LINK href="log4j2%20与%20spring%20mvc整合.files/31164.css" 
+rel="stylesheet" type="text/css"> <LINK title="RSS" href="http://www.cnblogs.com/yjmyzz/rss" 
+rel="alternate" type="application/rss+xml"> <LINK title="RSD" href="http://www.cnblogs.com/yjmyzz/rsd.xml" 
+rel="EditURI" type="application/rsd+xml"> <LINK href="http://www.cnblogs.com/yjmyzz/wlwmanifest.xml" 
+rel="wlwmanifest" type="application/wlwmanifest+xml"> 
+<SCRIPT src="log4j2%20与%20spring%20mvc整合.files/jquery.js" type="text/javascript"></SCRIPT>
+  
+<SCRIPT type="text/javascript">var currentBlogApp = 'yjmyzz', cb_enable_mathjax=true;</SCRIPT>
+ 
+<SCRIPT src="log4j2%20与%20spring%20mvc整合.files/blog-common.js" type="text/javascript"></SCRIPT>
+ 
+<META name="GENERATOR" content="MSHTML 11.00.9600.18015"></HEAD> 
+<BODY><A name="top"></A> <!--PageBeginHtml Block Begin--> 
+<SCRIPT src="log4j2%20与%20spring%20mvc整合.files/cnblog.js" type="text/javascript"></SCRIPT>
+ 
+<DIV class="ajaxBg" id="ajaxBg" style="display: none;"></DIV>
+<DIV class="ajaxPopUp" id="ajaxPopUp" style="display: none;">
+<DIV class="title" id="ajaxTitle"></DIV>
+<DIV class="body" id="ajaxBody"></DIV>
+<DIV class="footer"><A onclick="_jimmyClosePopUp()" 
+href="javascript:void(0)">Close(关闭)</A></DIV></DIV><!--PageBeginHtml Block End--> 
+<DIV id="home">
+<DIV id="header">
+<DIV id="blogTitle"><!--done--> 
+<DIV class="title"><A class="headermaintitle" id="Header1_HeaderTitle" href="http://www.cnblogs.com/yjmyzz/">菩提树下的杨过.Net</A></DIV>
+<DIV class="subtitle"></DIV></DIV><!--end: blogTitle 博客的标题和副标题 -->	 
+<DIV id="navigator">
+<UL id="navList">
+  <LI id="nav_sitehome"><A class="menu" id="MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</A></LI>
+  <LI id="nav_myhome"><A class="menu" id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/yjmyzz/">首页</A></LI>
+  <LI id="nav_newpost"><A class="menu" id="MyLinks1_NewPostLink" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" 
+  rel="nofollow">新随笔</A></LI>
+  <LI id="nav_contact"></LI>
+  <LI id="nav_rss"><A class="menu" id="MyLinks1_Syndication" href="http://www.cnblogs.com/yjmyzz/rss">订阅</A><!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/yjmyzz/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></LI>
+  <LI id="nav_admin"><A class="menu" id="MyLinks1_Admin" href="https://i.cnblogs.com/" 
+  rel="nofollow">管理</A></LI></UL>
+<DIV class="blogStats"><!--done--> 随笔-1080&nbsp; 文章-1&nbsp; 评论-2462&nbsp;			
+		 </DIV><!--end: blogStats -->	 </DIV><!--end: navigator 博客导航栏 --> </DIV><!--end: header 头部 --> 
+<DIV id="main">
+<DIV id="mainContent">
+<DIV class="forFlow">
+<DIV id="post_detail"><!--done--> 
+<DIV id="topics">
+<DIV class="post">
+<H1 class="postTitle"><A class="postTitle2" id="cb_post_title_url" href="http://www.cnblogs.com/yjmyzz/p/3988114.html">log4j2 
+与 spring mvc整合</A>		 </H1>
+<DIV class="clear"></DIV>
+<DIV class="postBody">
+<DIV id="cnblogs_post_body">
+<P>log4j<SPAN 
+style="color: rgb(255, 0, 0);"><STRONG>2</STRONG></SPAN>不仅仅是log4j的简单升级，而是整个项目的重构，官网地址：<A 
+href="http://logging.apache.org/log4j/2.x/">http://logging.apache.org/log4j/2.x/</A>，大家可以从官网的介绍看出它相比log4j第1代的种种优点。</P>
+<P><SPAN style="color: rgb(255, 0, 0);"><STRONG>一、基本使用</STRONG></SPAN></P>
+<P><SPAN style="color: rgb(255, 0, 0);">1.1</SPAN> maven依赖项</P>
+<DIV class="cnblogs_code" onclick="cnblogs_code_show('218d3fec-f54c-407a-bdd8-243f5f23c39b')"><IMG 
+class="code_img_closed" id="code_img_closed_218d3fec-f54c-407a-bdd8-243f5f23c39b" 
+alt="" src="log4j2%20与%20spring%20mvc整合.files/ContractedBlock.gif"><IMG class="code_img_opened" 
+id="code_img_opened_218d3fec-f54c-407a-bdd8-243f5f23c39b" style="display: none;" 
+onclick="cnblogs_code_hide('218d3fec-f54c-407a-bdd8-243f5f23c39b',event)" alt="" 
+src="log4j2%20与%20spring%20mvc整合.files/ExpandedBlockStart.gif"> 
+<DIV class="cnblogs_code_hide" id="cnblogs_code_open_218d3fec-f54c-407a-bdd8-243f5f23c39b">
+<PRE><SPAN style="color: rgb(0, 128, 128);"> 1</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 2</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.apache.logging.log4j<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 3</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>log4j-api<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 4</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>2.0.2<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 5</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 6</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 7</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.apache.logging.log4j<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 8</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>log4j-core<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 9</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>2.0.2<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">10</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN></PRE></DIV><SPAN class="cnblogs_code_collapse">View Code</SPAN></DIV>
+<P><SPAN style="color: rgb(255, 0, 0);">1.2</SPAN> Hello world示例</P>
+<DIV class="cnblogs_code" onclick="cnblogs_code_show('f5ec7a41-1e7c-4437-a968-c4c6d2db43f2')"><IMG 
+class="code_img_closed" id="code_img_closed_f5ec7a41-1e7c-4437-a968-c4c6d2db43f2" 
+alt="" src="log4j2%20与%20spring%20mvc整合.files/ContractedBlock.gif"><IMG class="code_img_opened" 
+id="code_img_opened_f5ec7a41-1e7c-4437-a968-c4c6d2db43f2" style="display: none;" 
+onclick="cnblogs_code_hide('f5ec7a41-1e7c-4437-a968-c4c6d2db43f2',event)" alt="" 
+src="log4j2%20与%20spring%20mvc整合.files/ExpandedBlockStart.gif"> 
+<DIV class="cnblogs_code_hide" id="cnblogs_code_open_f5ec7a41-1e7c-4437-a968-c4c6d2db43f2">
+<PRE><SPAN style="color: rgb(0, 128, 128);"> 1</SPAN> <SPAN style="color: rgb(0, 0, 255);">package</SPAN><SPAN style="color: rgb(0, 0, 0);"> com.cnblogs.yjmyzz;
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 2</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 3</SPAN> <SPAN style="color: rgb(0, 0, 255);">import</SPAN><SPAN style="color: rgb(0, 0, 0);"> org.apache.logging.log4j.LogManager;
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 4</SPAN> <SPAN style="color: rgb(0, 0, 255);">import</SPAN><SPAN style="color: rgb(0, 0, 0);"> org.apache.logging.log4j.Logger;
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 5</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 6</SPAN> <SPAN style="color: rgb(0, 128, 0);">/**</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 7</SPAN> <SPAN style="color: rgb(0, 128, 0);"> * Hello world!
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 8</SPAN> <SPAN style="color: rgb(0, 128, 0);"> * 
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 9</SPAN>  <SPAN style="color: rgb(0, 128, 0);">*/</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">10</SPAN> <SPAN style="color: rgb(0, 0, 255);">public</SPAN> <SPAN style="color: rgb(0, 0, 255);">class</SPAN><SPAN style="color: rgb(0, 0, 0);"> App {
+</SPAN><SPAN style="color: rgb(0, 128, 128);">11</SPAN>     <SPAN style="color: rgb(0, 0, 255);">static</SPAN> Logger logger =<SPAN style="color: rgb(0, 0, 0);"> LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">12</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);">13</SPAN>     <SPAN style="color: rgb(0, 0, 255);">public</SPAN> <SPAN style="color: rgb(0, 0, 255);">static</SPAN> <SPAN style="color: rgb(0, 0, 255);">void</SPAN><SPAN style="color: rgb(0, 0, 0);"> main(String[] args) {
+</SPAN><SPAN style="color: rgb(0, 128, 128);">14</SPAN>         logger.trace("trace message"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">15</SPAN>         logger.debug("debug message"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">16</SPAN>         logger.info("info message"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">17</SPAN>         logger.warn("warn message"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">18</SPAN>         logger.error("error message"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">19</SPAN>         logger.fatal("fatal message"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">20</SPAN>         System.out.println("Hello World!"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">21</SPAN> <SPAN style="color: rgb(0, 0, 0);">    }
+</SPAN><SPAN style="color: rgb(0, 128, 128);">22</SPAN> }</PRE></DIV><SPAN 
+class="cnblogs_code_collapse">View Code</SPAN></DIV>
+<P>在没有任何配置的情况下，log4j2会使用默认配置：</P>
+<DIV class="cnblogs_code" onclick="cnblogs_code_show('311c5dfc-f13a-49f8-9534-bf348da1729f')"><IMG 
+class="code_img_closed" id="code_img_closed_311c5dfc-f13a-49f8-9534-bf348da1729f" 
+alt="" src="log4j2%20与%20spring%20mvc整合.files/ContractedBlock.gif"><IMG class="code_img_opened" 
+id="code_img_opened_311c5dfc-f13a-49f8-9534-bf348da1729f" style="display: none;" 
+onclick="cnblogs_code_hide('311c5dfc-f13a-49f8-9534-bf348da1729f',event)" alt="" 
+src="log4j2%20与%20spring%20mvc整合.files/ExpandedBlockStart.gif"> 
+<DIV class="cnblogs_code_hide" id="cnblogs_code_open_311c5dfc-f13a-49f8-9534-bf348da1729f">
+<PRE><SPAN style="color: rgb(0, 128, 128);"> 1</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;?</SPAN><SPAN style="color: rgb(255, 0, 255);">xml version="1.0" encoding="UTF-8"</SPAN><SPAN style="color: rgb(0, 0, 255);">?&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 2</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Configuration </SPAN><SPAN style="color: rgb(255, 0, 0);">status</SPAN><SPAN style="color: rgb(0, 0, 255);">="WARN"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 3</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Appenders</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 4</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Console </SPAN><SPAN style="color: rgb(255, 0, 0);">name</SPAN><SPAN style="color: rgb(0, 0, 255);">="Console"</SPAN><SPAN style="color: rgb(255, 0, 0);"> target</SPAN><SPAN style="color: rgb(0, 0, 255);">="SYSTEM_OUT"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 5</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">PatternLayout </SPAN><SPAN style="color: rgb(255, 0, 0);">pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 6</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Console</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 7</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Appenders</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 8</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Loggers</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 9</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Root </SPAN><SPAN style="color: rgb(255, 0, 0);">level</SPAN><SPAN style="color: rgb(0, 0, 255);">="error"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">10</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">AppenderRef </SPAN><SPAN style="color: rgb(255, 0, 0);">ref</SPAN><SPAN style="color: rgb(0, 0, 255);">="Console"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">11</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Root</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">12</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Loggers</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">13</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Configuration</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN></PRE></DIV><SPAN 
+class="cnblogs_code_collapse">View Code</SPAN></DIV>
+<P>该配置只有一个Appender：Console，目标是SYSTEM_OUT，即日志内容，都会打印在eclipse控制台上。Root 
+Logger的级别是error，即：所有error及以上级别的日志才会记录。(注：日志级别顺序为 TRACE &lt; DEBUG &lt; INFO &lt; 
+WARN &lt; ERROR &lt; FATAL )，所以最终只有2日志会输出(error,fatal)</P>
+<DIV class="cnblogs_code">
+<PRE><SPAN style="color: rgb(0, 128, 128);">1</SPAN> 13:07:56.099 <SPAN style="color: rgb(128, 0, 0); font-weight: bold;">[</SPAN><SPAN style="color: rgb(128, 0, 0);">main</SPAN><SPAN style="color: rgb(128, 0, 0); font-weight: bold;">]</SPAN><SPAN style="color: rgb(0, 0, 0);"> ERROR  - error message
+</SPAN><SPAN style="color: rgb(0, 128, 128);">2</SPAN> 13:07:56.100 <SPAN style="color: rgb(128, 0, 0); font-weight: bold;">[</SPAN><SPAN style="color: rgb(128, 0, 0);">main</SPAN><SPAN style="color: rgb(128, 0, 0); font-weight: bold;">]</SPAN><SPAN style="color: rgb(0, 0, 0);"> FATAL  - fatal message
+</SPAN><SPAN style="color: rgb(0, 128, 128);">3</SPAN> Hello World!</PRE></DIV>
+<P>配置第1行中的status="WARN"，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF，设置成“WARN”指：所有log4j2的event信息中，只有WARN及以上级别的信息才记录，大家可以把它改成TRACE试试(最低级别)，看下输出内容有何变化。</P>
+<P>另：配置文件通常命名为<STRONG><SPAN 
+style="color: rgb(255, 0, 0);">log4j2.xml</SPAN></STRONG>，运行时只要在classpath下能找到即可。</P>
+<P><SPAN style="color: rgb(255, 0, 0);">1.3</SPAN> 文件方式记录日志</P>
+<P>真正应用中，更多的是以纯文本文件的方式来记录系统的运行日志，来看一段稍微复杂点的配置</P>
+<DIV class="cnblogs_code" onclick="cnblogs_code_show('3d4e3c46-4175-416d-b842-06f978e73b6c')"><IMG 
+class="code_img_closed" id="code_img_closed_3d4e3c46-4175-416d-b842-06f978e73b6c" 
+alt="" src="log4j2%20与%20spring%20mvc整合.files/ContractedBlock.gif"><IMG class="code_img_opened" 
+id="code_img_opened_3d4e3c46-4175-416d-b842-06f978e73b6c" style="display: none;" 
+onclick="cnblogs_code_hide('3d4e3c46-4175-416d-b842-06f978e73b6c',event)" alt="" 
+src="log4j2%20与%20spring%20mvc整合.files/ExpandedBlockStart.gif"> 
+<DIV class="cnblogs_code_hide" id="cnblogs_code_open_3d4e3c46-4175-416d-b842-06f978e73b6c">
+<PRE><SPAN style="color: rgb(0, 128, 128);"> 1</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;?</SPAN><SPAN style="color: rgb(255, 0, 255);">xml version="1.0" encoding="UTF-8"</SPAN><SPAN style="color: rgb(0, 0, 255);">?&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 2</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Configuration </SPAN><SPAN style="color: rgb(255, 0, 0);">status</SPAN><SPAN style="color: rgb(0, 0, 255);">="off"</SPAN><SPAN style="color: rgb(255, 0, 0);"> monitorInterval</SPAN><SPAN style="color: rgb(0, 0, 255);">="1800"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 3</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 4</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">properties</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 5</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">property </SPAN><SPAN style="color: rgb(255, 0, 0);">name</SPAN><SPAN style="color: rgb(0, 0, 255);">="LOG_HOME"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>logs/sample<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">property</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 6</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">property </SPAN><SPAN style="color: rgb(255, 0, 0);">name</SPAN><SPAN style="color: rgb(0, 0, 255);">="FILE_NAME"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>mylog<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">property</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 7</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">properties</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 8</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 9</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Appenders</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">10</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Console </SPAN><SPAN style="color: rgb(255, 0, 0);">name</SPAN><SPAN style="color: rgb(0, 0, 255);">="Console"</SPAN><SPAN style="color: rgb(255, 0, 0);"> target</SPAN><SPAN style="color: rgb(0, 0, 255);">="SYSTEM_OUT"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">11</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">PatternLayout </SPAN><SPAN style="color: rgb(255, 0, 0);">pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">12</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Console</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">13</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);">14</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">RollingRandomAccessFile </SPAN><SPAN style="color: rgb(255, 0, 0);">name</SPAN><SPAN style="color: rgb(0, 0, 255);">="running-log"</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">15</SPAN> <SPAN style="color: rgb(255, 0, 0);">            fileName</SPAN><SPAN style="color: rgb(0, 0, 255);">="${LOG_HOME}/${FILE_NAME}.log"</SPAN><SPAN style="color: rgb(255, 0, 0);"> filePattern</SPAN><SPAN style="color: rgb(0, 0, 255);">="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">16</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">PatternLayout
+</SPAN><SPAN style="color: rgb(0, 128, 128);">17</SPAN>                 <SPAN style="color: rgb(255, 0, 0);">pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">18</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Policies</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">19</SPAN>                 <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">TimeBasedTriggeringPolicy </SPAN><SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">20</SPAN>                 <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">SizeBasedTriggeringPolicy </SPAN><SPAN style="color: rgb(255, 0, 0);">size</SPAN><SPAN style="color: rgb(0, 0, 255);">="10 MB"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">21</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Policies</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">22</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">DefaultRolloverStrategy </SPAN><SPAN style="color: rgb(255, 0, 0);">max</SPAN><SPAN style="color: rgb(0, 0, 255);">="20"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">23</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">RollingRandomAccessFile</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">24</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Appenders</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">25</SPAN>     
+<SPAN style="color: rgb(0, 128, 128);">26</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Loggers</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">27</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Logger </SPAN><SPAN style="color: rgb(255, 0, 0);">name</SPAN><SPAN style="color: rgb(0, 0, 255);">="com.cnblogs.yjmyzz.App2"</SPAN><SPAN style="color: rgb(255, 0, 0);"> level</SPAN><SPAN style="color: rgb(0, 0, 255);">="trace"</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">28</SPAN> <SPAN style="color: rgb(255, 0, 0);">            additivity</SPAN><SPAN style="color: rgb(0, 0, 255);">="true"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">29</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">AppenderRef </SPAN><SPAN style="color: rgb(255, 0, 0);">ref</SPAN><SPAN style="color: rgb(0, 0, 255);">="running-log"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">30</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Logger</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">31</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">Root </SPAN><SPAN style="color: rgb(255, 0, 0);">level</SPAN><SPAN style="color: rgb(0, 0, 255);">="error"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">32</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">AppenderRef </SPAN><SPAN style="color: rgb(255, 0, 0);">ref</SPAN><SPAN style="color: rgb(0, 0, 255);">="Console"</SPAN> <SPAN style="color: rgb(0, 0, 255);">/&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">33</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Root</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">34</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Loggers</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">35</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">Configuration</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN></PRE></DIV><SPAN 
+class="cnblogs_code_collapse">View Code</SPAN></DIV>
+<P>&nbsp;解释一下：</P>
+<P>第1行中的 monitorInterval<SPAN style="color: rgb(0, 0, 255);">="1800" 
+</SPAN>指log4j2每隔1800秒（半小时），自动监控该配置文件是否有变化，如果变化，则自动根据文件内容重新配置（很不错的功能！）</P>
+<P>4-7行定义了一些属性（可以根据需要自己随便添加），主要是为了后面引用起来方便</P>
+<P>14行<SPAN style="color: rgb(128, 0, 0);">RollingRandomAccessFile</SPAN>&nbsp; 
+即表示以文件方式记录，注意一下filePattern 的设置，它与20行的<SPAN 
+style="color: rgb(128, 0, 0);">SizeBasedTriggeringPolicy</SPAN> 
+（表示单个文件最大多少容量）结合在一起，非常有用，以这段配置为例，当单个文件达到10M后，会自动将以前的内容，先创建类似 2014-09（年-月）的目录，然后按 
+"xxx-年-月-日-序号"命名，打成压缩包（很体贴的设计，即省了空间，又不丢失以前的日志信息）</P>
+<P>22行的<SPAN style="color: rgb(128, 0, 0);">DefaultRolloverStrategy <SPAN style="color: rgb(255, 0, 0);">max<SPAN 
+style="color: rgb(0, 0, 255);">="20"</SPAN></SPAN></SPAN>表示压缩包，最多保留20个</P>
+<P>27-30行，定义了一个新logger，它的级别是trace ，使用文件方式来记录日志，additivity<SPAN style="color: rgb(0, 0, 255);">="true"</SPAN> 
+这里注意一下，因为下面还有一个root logger，任何其它的logger最终都相当于继承自root 
+logger，所以“com.cnblogs.yjmyzz.App2”这个logger中，如果记录了error及以上级别的日志，除了文件里会记录外，root 
+logger也会生效，即：控制台也会输出一次。如果把additivity<SPAN style="color: rgb(0, 0, 255);">="true" 
+</SPAN>中的true，改成false，root logger就不会再起作用，即只会记录在文件里，控制台无输出。</P>
+<P>另外关于logger的命名，很有讲究的，这里我们命名为com.cnblogs.yjmyzz.App2，如果正好有这样一个类：</P>
+<DIV class="cnblogs_code" onclick="cnblogs_code_show('76ea3013-8d96-4265-b271-d403ee6beceb')"><IMG 
+class="code_img_closed" id="code_img_closed_76ea3013-8d96-4265-b271-d403ee6beceb" 
+alt="" src="log4j2%20与%20spring%20mvc整合.files/ContractedBlock.gif"><IMG class="code_img_opened" 
+id="code_img_opened_76ea3013-8d96-4265-b271-d403ee6beceb" style="display: none;" 
+onclick="cnblogs_code_hide('76ea3013-8d96-4265-b271-d403ee6beceb',event)" alt="" 
+src="log4j2%20与%20spring%20mvc整合.files/ExpandedBlockStart.gif"> 
+<DIV class="cnblogs_code_hide" id="cnblogs_code_open_76ea3013-8d96-4265-b271-d403ee6beceb">
+<PRE><SPAN style="color: rgb(0, 128, 128);"> 1</SPAN> <SPAN style="color: rgb(0, 0, 255);">package</SPAN><SPAN style="color: rgb(0, 0, 0);"> com.cnblogs.yjmyzz;
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 2</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 3</SPAN> <SPAN style="color: rgb(0, 0, 255);">import</SPAN><SPAN style="color: rgb(0, 0, 0);"> org.apache.logging.log4j.LogManager;
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 4</SPAN> <SPAN style="color: rgb(0, 0, 255);">import</SPAN><SPAN style="color: rgb(0, 0, 0);"> org.apache.logging.log4j.Logger;
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 5</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 6</SPAN> <SPAN style="color: rgb(0, 0, 255);">public</SPAN> <SPAN style="color: rgb(0, 0, 255);">class</SPAN><SPAN style="color: rgb(0, 0, 0);"> App2 {
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 7</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 8</SPAN>     <SPAN style="color: rgb(0, 0, 255);">static</SPAN> Logger logger =<SPAN style="color: rgb(0, 0, 0);"> LogManager.getLogger();
+</SPAN><SPAN style="color: rgb(0, 128, 128);"> 9</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);">10</SPAN>     <SPAN style="color: rgb(0, 0, 255);">public</SPAN> <SPAN style="color: rgb(0, 0, 255);">static</SPAN> <SPAN style="color: rgb(0, 0, 255);">void</SPAN><SPAN style="color: rgb(0, 0, 0);"> main(String[] args) {
+</SPAN><SPAN style="color: rgb(0, 128, 128);">11</SPAN>         <SPAN style="color: rgb(0, 0, 255);">for</SPAN> (<SPAN style="color: rgb(0, 0, 255);">int</SPAN> i = 0; i &lt; 10; i++<SPAN style="color: rgb(0, 0, 0);">) {
+</SPAN><SPAN style="color: rgb(0, 128, 128);">12</SPAN>             logger.trace("trace message " +<SPAN style="color: rgb(0, 0, 0);"> i);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">13</SPAN>             logger.debug("debug message " +<SPAN style="color: rgb(0, 0, 0);"> i);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">14</SPAN>             logger.info("info message " +<SPAN style="color: rgb(0, 0, 0);"> i);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">15</SPAN>             logger.warn("warn message " +<SPAN style="color: rgb(0, 0, 0);"> i);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">16</SPAN>             logger.error("error message " +<SPAN style="color: rgb(0, 0, 0);"> i);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">17</SPAN>             logger.fatal("fatal message " +<SPAN style="color: rgb(0, 0, 0);"> i);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">18</SPAN> <SPAN style="color: rgb(0, 0, 0);">        }        
+</SPAN><SPAN style="color: rgb(0, 128, 128);">19</SPAN>         System.out.println("Hello World! 2"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">20</SPAN> <SPAN style="color: rgb(0, 0, 0);">    }
+</SPAN><SPAN style="color: rgb(0, 128, 128);">21</SPAN> }</PRE></DIV><SPAN 
+class="cnblogs_code_collapse">View Code</SPAN></DIV>
+<P>log4j2是根据名称来用哪个logger的，第8行没有传任何参数，默认这个logger的name就是当前类的全称，即 
+com.cnblogs.yjmyzz.App2，这样就跟配置对应上了，所以刚才配置中的 
+nam="com.cnblogs.yjmyzz.App2"的logger，相当于只对App2这一个类起作用。</P>
+<P>更多关于logger name继承的规则，请参考<A href="http://logging.apache.org/log4j/2.x/log4j-users-guide.pdf" 
+target="_blank">log4j2的官方pdf文档</A></P>
+<P>&nbsp;</P>
+<P><SPAN style="color: rgb(255, 0, 0);"><STRONG>二、与Spring MVC 
+的整合</STRONG></SPAN></P>
+<P><STRONG><SPAN style="color: rgb(255, 0, 0);">2.1</SPAN> </STRONG>maven依赖项</P>
+<DIV class="cnblogs_code" onclick="cnblogs_code_show('e2ff2a0f-1334-4f4a-9a4d-bd0cefff116b')"><IMG 
+class="code_img_closed" id="code_img_closed_e2ff2a0f-1334-4f4a-9a4d-bd0cefff116b" 
+alt="" src="log4j2%20与%20spring%20mvc整合.files/ContractedBlock.gif"><IMG class="code_img_opened" 
+id="code_img_opened_e2ff2a0f-1334-4f4a-9a4d-bd0cefff116b" style="display: none;" 
+onclick="cnblogs_code_hide('e2ff2a0f-1334-4f4a-9a4d-bd0cefff116b',event)" alt="" 
+src="log4j2%20与%20spring%20mvc整合.files/ExpandedBlockStart.gif"> 
+<DIV class="cnblogs_code_hide" id="cnblogs_code_open_e2ff2a0f-1334-4f4a-9a4d-bd0cefff116b">
+<PRE><SPAN style="color: rgb(0, 128, 128);"> 1</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">properties</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 2</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">java.version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>1.6<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">java.version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 3</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">springframework.version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>3.2.8.RELEASE<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">springframework.version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 4</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">log4j2.version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>2.0.2<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">log4j2.version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 5</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">properties</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 6</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependencies</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 7</SPAN>         <SPAN style="color: rgb(0, 128, 0);">&lt;!--</SPAN><SPAN style="color: rgb(0, 128, 0);"> Spring </SPAN><SPAN style="color: rgb(0, 128, 0);">--&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 8</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 9</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">10</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>spring-core<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">11</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${springframework.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">12</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">13</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">14</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">15</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>spring-beans<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">16</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${springframework.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">17</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">18</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">19</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">20</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>spring-context<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">21</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${springframework.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">22</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">23</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">24</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">25</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>spring-web<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">26</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${springframework.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">27</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">28</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">29</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">30</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>spring-webmvc<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">31</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${springframework.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">32</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">33</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">34</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">35</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>spring-expression<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">36</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${springframework.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">37</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">38</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);">39</SPAN>         <SPAN style="color: rgb(0, 128, 0);">&lt;!--</SPAN><SPAN style="color: rgb(0, 128, 0);"> log4j2 </SPAN><SPAN style="color: rgb(0, 128, 0);">--&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">40</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">41</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.apache.logging.log4j<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">42</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>log4j-api<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">43</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${log4j2.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">44</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">45</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">46</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.apache.logging.log4j<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">47</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>log4j-core<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">48</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>${log4j2.version}<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">49</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">50</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">51</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.apache.logging.log4j<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">groupId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">52</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>log4j-web<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">artifactId</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">53</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>2.0.2<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">54</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependency</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">55</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dependencies</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN></PRE></DIV><SPAN class="cnblogs_code_collapse">View Code</SPAN></DIV>
+<P><STRONG><SPAN style="color: rgb(255, 0, 0);">2.2</SPAN></STRONG> 
+web.xml配置</P>
+<DIV class="cnblogs_code" onclick="cnblogs_code_show('ff124a51-f8de-4655-8231-85c143a9d5cc')"><IMG 
+class="code_img_closed" id="code_img_closed_ff124a51-f8de-4655-8231-85c143a9d5cc" 
+alt="" src="log4j2%20与%20spring%20mvc整合.files/ContractedBlock.gif"><IMG class="code_img_opened" 
+id="code_img_opened_ff124a51-f8de-4655-8231-85c143a9d5cc" style="display: none;" 
+onclick="cnblogs_code_hide('ff124a51-f8de-4655-8231-85c143a9d5cc',event)" alt="" 
+src="log4j2%20与%20spring%20mvc整合.files/ExpandedBlockStart.gif"> 
+<DIV class="cnblogs_code_hide" id="cnblogs_code_open_ff124a51-f8de-4655-8231-85c143a9d5cc">
+<PRE><SPAN style="color: rgb(0, 128, 128);"> 1</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;?</SPAN><SPAN style="color: rgb(255, 0, 255);">xml version="1.0" encoding="UTF-8"</SPAN><SPAN style="color: rgb(0, 0, 255);">?&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 2</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">web-app </SPAN><SPAN style="color: rgb(255, 0, 0);">version</SPAN><SPAN style="color: rgb(0, 0, 255);">="2.5"</SPAN><SPAN style="color: rgb(255, 0, 0);"> xmlns</SPAN><SPAN style="color: rgb(0, 0, 255);">="http://java.sun.com/xml/ns/javaee"</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 3</SPAN> <SPAN style="color: rgb(255, 0, 0);">    xmlns:xsi</SPAN><SPAN style="color: rgb(0, 0, 255);">="http://www.w3.org/2001/XMLSchema-instance"</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 4</SPAN> <SPAN style="color: rgb(255, 0, 0);">    xsi:schemaLocation</SPAN><SPAN style="color: rgb(0, 0, 255);">="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 5</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);"> 6</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">context-param</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 7</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">param-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>contextConfigLocation<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">param-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 8</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">param-value</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>/WEB-INF/spring/root-context.xml<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">param-value</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);"> 9</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">context-param</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">10</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">listener</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">11</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">listener-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework.web.context.ContextLoaderListener<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">listener-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">12</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">listener</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">13</SPAN> 
+<SPAN style="color: rgb(0, 128, 128);">14</SPAN>     <SPAN style="color: rgb(0, 128, 0);">&lt;!--</SPAN><SPAN style="color: rgb(0, 128, 0);"> log4j2-begin </SPAN><SPAN style="color: rgb(0, 128, 0);">--&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">15</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">listener</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">16</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">listener-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.apache.logging.log4j.web.Log4jServletContextListener<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">listener-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">17</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">listener</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">18</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">19</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>log4jServletFilter<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">20</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.apache.logging.log4j.web.Log4jServletFilter<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">21</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">22</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-mapping</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">23</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>log4jServletFilter<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">24</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">url-pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>/*<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">url-pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">25</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>REQUEST<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">26</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>FORWARD<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">27</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>INCLUDE<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">28</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>ERROR<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">dispatcher</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">29</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-mapping</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">30</SPAN>     <SPAN style="color: rgb(0, 128, 0);">&lt;!--</SPAN><SPAN style="color: rgb(0, 128, 0);"> log4j2-end </SPAN><SPAN style="color: rgb(0, 128, 0);">--&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">31</SPAN>     
+<SPAN style="color: rgb(0, 128, 128);">32</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">33</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>CharacterEncodingFilter<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">34</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework.web.filter.CharacterEncodingFilter<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">35</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">init-param</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">36</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">param-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>encoding<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">param-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">37</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">param-value</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>utf-8<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">param-value</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">38</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">init-param</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">39</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">40</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-mapping</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">41</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>CharacterEncodingFilter<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">42</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">url-pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>/*<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">url-pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">43</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">filter-mapping</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">44</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">45</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>appServlet<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">46</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>org.springframework.web.servlet.DispatcherServlet<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-class</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">47</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">init-param</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">48</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">param-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>contextConfigLocation<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">param-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">49</SPAN>             <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">param-value</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>/WEB-INF/spring/appServlet/servlet-context.xml<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">param-value</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">50</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">init-param</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">51</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">load-on-startup</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>1<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">load-on-startup</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">52</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">53</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-mapping</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">54</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>appServlet<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-name</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">55</SPAN>         <SPAN style="color: rgb(0, 0, 255);">&lt;</SPAN><SPAN style="color: rgb(128, 0, 0);">url-pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>/<SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">url-pattern</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">56</SPAN>     <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">servlet-mapping</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">57</SPAN> <SPAN style="color: rgb(0, 0, 255);">&lt;/</SPAN><SPAN style="color: rgb(128, 0, 0);">web-app</SPAN><SPAN style="color: rgb(0, 0, 255);">&gt;</SPAN></PRE></DIV><SPAN 
+class="cnblogs_code_collapse">View Code</SPAN></DIV>
+<P>注：这是web app 2.5的整合方法，web app3.0不需要这么复杂的配置，3.0的整合请参考官方pdf文档<BR><STRONG><SPAN 
+style="color: rgb(255, 0, 0);">2.3</SPAN> </STRONG>log4j2.xml</P>
+<P>内容前面那段“复杂的”配置差不多，就不重复贴出来了</P>
+<P>放置在resources目录即可，打包后，会自动复制到classpath下.</P></DIV>
+<DIV id="MySignature"></DIV>
+<DIV class="clear"></DIV>
+<DIV id="blog_post_info_block">
+<DIV id="BlogPostCategory"></DIV>
+<DIV id="EntryTag"></DIV>
+<DIV id="blog_post_info"></DIV>
+<DIV class="clear"></DIV>
+<DIV id="post_next_prev"></DIV></DIV></DIV>
+<DIV class="postDesc">posted @ <SPAN id="post-date">2014-09-23 14:15</SPAN> <A 
+href="http://www.cnblogs.com/yjmyzz/">菩提树下的杨过</A> 阅读(<SPAN 
+id="post_view_count">...</SPAN>) 评论(<SPAN id="post_comment_count">...</SPAN>)  
+<A href="https://i.cnblogs.com/EditPosts.aspx?postid=3988114" 
+rel="nofollow">编辑</A> <A onclick="AddToWz(3988114);return false;" href="http://www.cnblogs.com/yjmyzz/p/3988114.html#">收藏</A></DIV></DIV>
+<SCRIPT type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=31164,cb_entryId=3988114,cb_blogApp=currentBlogApp,cb_blogUserGuid='c1853d0b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2014/9/23 14:15:00';loadViewCount(cb_entryId);</SCRIPT>
+	 </DIV><!--end: topics 文章、评论容器--> </DIV><A name="!comments"></A>
+<DIV id="blog-comments-placeholder"></DIV>
+<SCRIPT type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</SCRIPT>
+ 
+<DIV class="commentform" id="comment_form"><A name="commentform"></A> 
+<DIV id="divCommentShow"></DIV>
+<DIV id="comment_nav"><SPAN id="span_refresh_tips"></SPAN><A id="lnk_RefreshComments" 
+onclick="return RefreshCommentList();" href="javascript:void(0);" clientidmode="Static" 
+runat="server">刷新评论</A><A onclick="return RefreshPage();" href="http://www.cnblogs.com/yjmyzz/p/3988114.html#">刷新页面</A><A 
+href="http://www.cnblogs.com/yjmyzz/p/3988114.html#top">返回顶部</A></DIV>
+<DIV id="comment_form_container"></DIV>
+<DIV class="ad_text_commentbox" id="ad_text_under_commentbox"></DIV>
+<DIV id="ad_t2"></DIV>
+<DIV id="opt_under_post"></DIV>
+<DIV class="c_ad_block" id="ad_c1"></DIV>
+<DIV id="under_post_news"></DIV>
+<DIV class="c_ad_block" id="ad_c2"></DIV>
+<DIV id="under_post_kb"></DIV>
+<DIV class="c_ad_block" id="HistoryToday"></DIV>
+<SCRIPT type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</SCRIPT>
+ </DIV></DIV><!--end: forFlow -->	 </DIV><!--end: mainContent 主体内容容器-->	 
+<DIV id="sideBar">
+<DIV id="sideBarMain"><!--done--> 
+<DIV class="newsItem">
+<H3 class="catListTitle">公告</H3>
+<DIV id="blog-news"></DIV>
+<SCRIPT type="text/javascript">loadBlogNews();</SCRIPT>
+ </DIV>
+<DIV id="calendar">
+<DIV id="blog-calendar" style="display: none;"></DIV>
+<SCRIPT type="text/javascript">loadBlogDefaultCalendar();</SCRIPT>
+</DIV>
+<DIV id="leftcontentcontainer">
+<DIV id="blog-sidecolumn"></DIV>
+<SCRIPT type="text/javascript">loadBlogSideColumn();</SCRIPT>
+			 </DIV></DIV><!--end: sideBarMain -->	 </DIV><!--end: sideBar 侧边栏容器 -->	 
+<DIV class="clear"></DIV></DIV><!--end: main -->	 
+<DIV class="clear"></DIV>
+<DIV id="footer"><!--done--> Copyright ©2016 菩提树下的杨过	 </DIV><!--end: footer --> 
+</DIV><!--end: home 自定义的最大容器 --> </BODY></HTML>

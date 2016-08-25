@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-4.3.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+<!-- commons-dbcp2中的数据库池连接配置也发生了变化，具体的参数配置说明如下：
+
+参数 描述 
+
+username 通过JDBC建立一个连接所需的用户名 
+password 通过JDBC建立一个连接所需的密码 
+url 通过JDBC建立一个连接所需的URL 
+driverClassName 所使用的JDBC驱动的类全名 
+connectionProperties 连接参数是在建立一个新连接时发送给JDBC驱动的
+字符串的格式必须是[参数名=参数值;]
+提示：用户名和密码属性是需要明确指出的，所以这两个参数不需要包含在这里  
+
+参数 缺省值 描述 
+
+defaultAutoCommit JDBC驱动的缺省值 通过这个池创建连接的默认自动提交状态。如果不设置，则setAutoCommit 方法将不被调用。 
+defaultReadOnly JDBC驱动的缺省值 通过这个池创建连接的默认只读状态。如果不设置，则setReadOnly  方法将不被调用。（部分驱动不支持只读模式，如：Informix）  
+defaultTransactionIsolation JDBC驱动的缺省值 通过这个池创建连接的默认事务策略，设置值为下列中的某一个： (参考 javadoc) •NONE
+•READ_COMMITTED
+•READ_UNCOMMITTED
+•REPEATABLE_READ
+•SERIALIZABLE
+ 
+defaultCatalog   通过这个池创建连接的默认缺省的catalog  
+cacheState true 如果设置为true，池化的连接将在第一次读或写，以及随后的写的时候缓存当前的只读状态和自动提交设置。这样就省去了对getter的任何进一步的调用时对数据库的额外查询。如果直接访问底层连接，只读状态和/或自动提交设置改变缓存值将不会被反映到当前的状态，在这种情况下，应该将该属性设置为false以禁用缓存。 
+
+参数 缺省值 描述 
+
+initialSize 0 当这个池被启动时初始化的创建的连接个数，起始生效版本：1.2 
+maxTotal 8 可以在这个池中同时被分配的有效连接数的最大值，如设置为负数，则不限制 
+maxIdle 8 可以在池中保持空闲的最大连接数，超出设置值之外的空闲连接将被回收，如设置为负数，则不限制  
+minIdle 0 可以在池中保持空闲的最小连接数，超出设置值之外的空闲连接将被创建，如设置为0，则不创建 
+maxWaitMillis indefinitely （如果没有可用连接）池在抛出异常前等待的一个连接被归还的最大毫秒数，设置为-1则等待时间不确定  
+
+ 提示: 如果在高负载的系统中将maxIdle的值设置的很低，则你可能会发现在一个新的连接刚刚被创建的时候就立即被关闭了。这是活跃的线程及时关闭连接要比那些打开连接的线程要快，导致空闲的连接数大于maxIdle。高负载系统中maxIdle的最合适的配置值是多样的，但是缺省值是一个好的开始点。
+
+参数 缺省值 描述 
+
+validationQuery   在连接池返回连接给调用者前用来进行连接校验的查询sql。如果指定，则这个查询必须是一个至少返回一行数据的SQL SELECT语句。如果没有指定，则连接将通过调用isValid() 方法进行校验。 
+testOnCreate false 指明对象在创建后是否需要被校验，如果对象校验失败，则触发对象创建的租借尝试将失败。 
+testOnBorrow true 指明在从池中租借对象时是否要进行校验，如果对象校验失败，则对象将从池子释放，然后我们将尝试租借另一个 
+testOnReturn false 指明在将对象归还给连接池前是否需要校验。 
+testWhileIdle false 指明对象是否需要通过对象驱逐者进行校验（如果有的话），假如一个对象校验失败，则对象将被从池中释放。 
+timeBetweenEvictionRunsMillis -1 空闲对象驱逐线程运行时的休眠毫秒数，如果设置为非正数，则不运行空闲对象驱逐线程。 
+numTestsPerEvictionRun 3 在每个空闲对象驱逐线程运行过程中中进行检查的对象个数。（如果有的话） 
+minEvictableIdleTimeMillis 1000 * 60 * 30 符合对象驱逐对象驱逐条件的对象在池中最小空闲毫秒总数（如果有的话）  
+softMiniEvictableIdleTimeMillis -1 符合对象驱逐对象驱逐条件的对象在池中最小空闲毫秒总数，额外的条件是池中至少保留有minIdle所指定的个数的连接。当miniEvictableIdleTimeMillis 被设置为一个正数，空闲连接驱逐者首先检测miniEvictableIdleTimeMillis，当空闲连接被驱逐者访问时，首先与miniEvictableIdleTimeMillis 所指定的值进行比较（而不考虑当前池中的空闲连接数），然后比较softMinEvictableIdleTimeMillis所指定的连接数，包括minIdle条件。 
+maxConnLifetimeMillis -1 一个连接的最大存活毫秒数。如果超过这个时间，则连接在下次激活、钝化、校验时都将会失败。如果设置为0或小于0的值，则连接的存活时间是无限的。 
+connectionInitSqls null 在第一次创建时用来初始化物理连接的SQL语句集合。这些语句只在配置的连接工厂创建连接时被执行一次。 
+lifo true 设置为true表明连接池（如果池中有可用的空闲连接时）将返回最后一次使用的租借对象（最后进入）。设置为false则表明池将表现为FIFO队列——将会按照它们被归还的顺序从空闲连接实例池中获取连接  
+
+参数 缺省值 描述 
+
+poolPreparedStatements false 设置该连接池的预处理语句池是否生效 
+maxOpenPreparedStatements unlimited 可以在语句池中同时分配的最大语句数。设置为负数则不限制。 
+
+ 这个设置同时作用于预处理语句池. 当一个可用的语句池被创建给每一个连接时，通过以下方法创建的预处理语句将被池化。
+•public PreparedStatement prepareStatement(String sql)
+•public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency)
+
+ 提示 -要确保你的连接会留下一些资源给其他语句。池化预处理语句可能会在数据库中保持他们的游标，可能会引起连接的游标越界，尤其是maxOpenPreparedStatements的值被设置为默认值（无限的），而且一个应用程序可能会为每个连接打开大量不同的预处理语句。为了避免这个问题maxOpenPreparedStatements应该被设置为一个小于连接可以打开的最大游标数的值。
+
+参数 缺省值 描述 
+
+accessToUnderlyingConnectionAllowed false 控制PoolGuard是否可以访问底层连接  
+
+如果允许访问的话，使用如下代码结构：
+
+
+     Connection conn = ds.getConnection();
+    Connection dconn =((DelegatingConnection) conn).getInnermostDelegate();
+    ...
+    conn.close()
+
+
+ 默认值为false，这是一个有着潜在风险的操作，使用不当可能会导致非常严重的后果。（在守卫连接已被关闭的情况下，关闭底层连接或者继续使用它），只有在你需要直接访问驱动的特有扩展是可以谨慎使用。
+
+ NOTE: 除了最原始那个之外，不要关闭底层连接
+
+参数 缺省值 描述 
+
+removeAbandoned false 标记是否删除超过removeAbandonedTimout所指定时间的被遗弃的连接。
+如果设置为true，则一个连接在超过removeAbandonedTimeout所设定的时间未使用即被认为是应该被抛弃并应该被移除的。创建一个语句，预处理语句，可调用语句或使用它们其中的一个执行查询（使用执行方法中的某一个）会重新设置其父连接的lastUsed 属性。
+在写操作较少的应用程序中将该参数设置为true可以将数据库连接从连接关闭失败中恢复。 
+removeAbandonedTimeout 300 一个被抛弃连接可以被移除的超时时间，单位为秒 
+logAbandoned false 标志是否为应用程序中遗弃语句或连接的代码开启日志堆栈追踪。
+因为一个堆栈跟踪已被创建，被抛弃的语句和连接相关的日志将被覆盖到打开每个连接或者创建一个Statement时 
+
+如果你启用了removeAbandoned，则一个连接被池回收再利用是可能的，因为它被认为是已遗弃 在(getNumIdle() < 2) and (getNumActive() > getMaxTotal() - 3)成立时，这个机制将被触发。
+
+ 例如, maxTotal=20 ，这里有18个活跃连接，一个限制连接，将触发 "removeAbandoned"。但是只有在活动连接超过 "removeAbandonedTimeout" 所指定的秒数内未使用才会被删除（默认为300秒）。遍历一个结果集并不被统计为被使用，创建一个语句，预处理语句，可调用语句或使用它们其中的一个执行查询（使用执行方法中的某一个）会重新设置其父连接的lastUsed 属性。
+
+ -->
+
+
+	<bean id="dbcp2_ds" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>org.postgresql.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:postgresql://192.168.100.247:5432/ssm_demo?socketTimeout=120</value>
+		</property>
+		<property name="username">
+			<value>postgres</value>
+		</property>
+		<property name="password">
+			<value>admin</value>
+		</property>
+		<!-- 连接池启动时的初始值 -->
+		<property name="initialSize" value="2"></property>
+		<!-- 连接池的最大值 -->
+		<property name="maxTotal" value="20"></property>
+		<!-- 最大空间值、当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分，直至减少的maxIdle为止 -->
+		<property name="maxIdle" value="5"></property>
+		<!-- 最小空间值，当空间的连接数少于阀值时，连接池就会预申请一些连接，以免洪峰来时 来不及申请 -->
+		<property name="minIdle" value="3"></property>
+		
+	</bean>
+
+</beans>   

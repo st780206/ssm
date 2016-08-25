@@ -1,0 +1,30 @@
+* html {
+	
+}
+* body {
+	height: 100%; color: rgb(69, 69, 69);
+}
+.ajaxBg {
+	left: 0px; top: 0px; width: 100%; height: 100%; position: fixed !important; z-index: 9999; opacity: 0.5; background-color: rgb(102, 102, 102);
+}
+.ajaxPopUp {
+	background: rgb(255, 255, 255); padding: 1px; border: 1px solid rgb(102, 102, 102); left: 50%; top: 50%; line-height: 20px; font-size: 12px; margin-top: 0px; position: fixed !important; z-index: 99999;
+}
+.ajaxPopUp .title {
+	background: rgb(239, 239, 239); padding: 0px 3px;
+}
+.ajaxPopUp .footer {
+	background: rgb(239, 239, 239); padding: 0px 3px;
+}
+.ajaxPopUp .body {
+	padding: 3px;
+}
+.ajaxPopUp .footer {
+	text-align: right;
+}
+.ajaxPopUp .title {
+	font-weight: bold;
+}
+.postBody a {
+	color: rgb(57, 154, 178) !important;
+}

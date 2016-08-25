@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE beans PUBLIC      
+"-//SPRING//DTD BEAN//EN"     
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    
+    <!-- dao -->
+    <bean id="pgsqlTestDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="dao.PgsqlTestDao" />
+        <property name="sqlSessionFactory" ref="sessionFactory" />
+    </bean>
+    
+     <bean id="functionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="dao.FunctionDao" />
+        <property name="sqlSessionFactory" ref="sessionFactory" />
+    </bean>
+    
+     <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="dao.UserDao" />
+        <property name="sqlSessionFactory" ref="sessionFactory" />
+    </bean>
+     
+     
+</beans>   

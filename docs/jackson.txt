@@ -1,0 +1,108 @@
+Jackson使用示例： 
+
+ 
+
+JacksonMapper：
+
+创建为饿汉式单例模式 ，Jackson用于转换的核心类ObjectMapper无需每次都new一个object，官网上的一句话：can reuse, share globally
+
+
+
+Java代码 
+01./**  
+02. * @author xuanyin  
+03. *   
+04. */  
+05.public class JacksonMapper {   
+06.  
+07.    /**  
+08.     *   
+09.     */  
+10.    private static final ObjectMapper mapper = new ObjectMapper();   
+11.  
+12.    /**  
+13.     *   
+14.     */  
+15.    private JacksonMapper() {   
+16.  
+17.    }   
+18.  
+19.    /**  
+20.     *   
+21.     * @return  
+22.     */  
+23.    public static ObjectMapper getInstance() {   
+24.  
+25.        return mapper;   
+26.    }   
+27.  
+28.}    
+
+JSON转Bean：
+
+
+
+Java代码 
+01.......   
+02.String json = "...";   
+03.ObjectMapper mapper = JacksonMapper.getInstance();   
+04.YourBean bean = mapper.readValue(json, new YourBean().getClass());   
+05.......  
+  
+Bean转JSON：
+
+
+
+Java代码 
+01.......   
+02.YourBean bean = new YourBean();   
+03.......   
+04.ObjectMapper mapper = JacksonMapper.getInstance();   
+05.StringWriter sw = new StringWriter();   
+06.JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);   
+07.mapper.writeValue(gen, bean);   
+08.gen.close();   
+09.String json = sw.toString();   
+10.......  
+
+
+
+实际应用中json串不一定是在java中定义的，有可能是从页面传过来的，java只是负责解析。我以前用的是json-lib没有问题， 但是换成jackson后出现这个问题。不知道是不是对jackson的API研究不够？
+1.json-lib 以下写法没有问题
+
+
+
+Java代码 
+01.Map map = JSONObject.fromObject("{a:1, b:2}");  
+
+ 2.jackson 以下写法报异常
+
+
+
+Java代码 
+01.Map map = new ObjectMapper().readValue("{a:1, b:2}", HashMap.class);  
+必须写成
+
+
+
+Java代码 
+01.Map map = new ObjectMapper().readValue("{\"a\":1, \"b\":2}", HashMap.class);  
+
+
+请开启支持字段名称不带引号的转换模式,默认是关闭的.
+即将上面报异常的那句改成这样：
+
+
+Java代码 
+01.Map map = new ObjectMapper().configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true).readValue("{a:1, b:2}", HashMap.class);  
+
+ 
+
+
+JSON转POJO时，若JSON中的某个字段在POJO中未定义，在默认情况下会抛异常转换失败，只要增加这个配置：
+
+
+
+01.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false  
+就可以转换正常，即只转换定义的字段，未定义的字段忽略。
+

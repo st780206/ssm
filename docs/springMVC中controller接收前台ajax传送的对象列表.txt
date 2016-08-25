@@ -1,0 +1,82 @@
+前端有一组对象的列表（对象的数组），需要通过ajax传送到后台映射成实体对象的list进行批量保存。
+
+但是我们知道，springMVC默认并不支持List类型的转换，因此需要我们手动对其进行转换。
+ 经过一阵子寻找，找到了一种可行的方法来解决这个问题。
+
+解决方案
+
+将对象列表转换成json字符串传送到后台，再通过com.fasterxml.jackson.databind包下的ObjectMapper将json字符串解析成实体对象的List。
+方案实现
+
+创建一个Json转换工具类JsonMapper.class。作为工具类，它有一个静态的方法convertToList。具体如下:
+
+
+
+
+
+public class JsonMapper {
+    public static <T> List<T>  convertToList(String json,Class<T[]> cls){
+        List<T> list = null;  //目标list
+        T[] arr = null; //ObjectMapper无法将json直接解析成对象的list，
+                        //因此需要先将其解析成对象数组，
+                        //再通过Arrays.asList转换成对象List
+        try {
+            ObjectMapper mapper = new ObjectMapper(); 
+            list = Arrays.asList(mapper.readValue(json, cls)); //执行转换
+        }catch (JsonParseException e){
+            e.printStackTrace();
+        }catch (JsonMappingException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+}
+
+
+根据传入的json字符串和实体对象的类型，将json解析成list返回。并且作为静态工具类，更适合多出复用。
+
+controller中调用：
+
+
+
+
+
+@RequestMapping(value = "/save-addition")
+@ResponseBody
+public Map<String,Object> saveAddition(@RequestParam String exps){
+    //执行转换
+    List<Entity> list = JsonMapper.convertToList(exps,Entity[].class);
+
+    return service.saveAll(list);    //map返回保存的结果信息
+}
+
+ajax中传参：
+
+function save(){
+    var exps = {
+        //属性值，与Entity中的属性名一致
+        ...
+    }
+
+    $.ajax({
+        url:ctx + "/save-addition",
+        type:'POST',
+        data: {exps:$.toJSON(exps)},
+        success:function(data){
+            console.log(data);
+            if(data.result){  //保存成功
+                ...
+            }
+        },
+        error:function(status){
+            console.log(status);
+        }
+    })
+}
+
+
+到此，后台的controller就可以正确的接收前端传送的数据，并将其转化为Entity的list以便后续操作。
+
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE beans PUBLIC      
+"-//SPRING//DTD BEAN//EN"     
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    
+    <!-- biz -->
+    <!-- 
+    <bean id="bizInterface" class="">
+        <property name="" ref="" />
+    </bean>
+     -->
+    
+    <bean id="testBiz" class="biz.TestBizI">
+        <property name="pgsqlTestDao" ref="pgsqlTestTransaction" />
+        <property name="functionDao" ref="functionDao" />
+    </bean>
+    
+    <bean id="functionBiz" class="biz.FunctionBizI">
+        <property name="functionDao" ref="functionDao" />
+    </bean>
+    
+    <bean id="loginBiz" class="biz.LoginBizI">
+        <property name="userDao" ref="userDao" />
+    </bean>
+     
+</beans>   

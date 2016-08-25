@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- dao接口的完全限定类名 -->
+<mapper namespace="dao.Demo2Dao">
+
+	<select id="getAllDemo2" resultType="bean.Demo2Bean">
+		select username,passwd from demo2
+	</select>
+
+	<select id="getDemo2ByName" resultType="bean.Demo2Bean">
+		select username,passwd from demo2
+		<where>
+			username = #{username}
+		</where>
+		limit 1
+	</select>
+
+	<select id="getDemo2ByDemo2Bean" resultType="bean.Demo2Bean">
+		select username,passwd from demo2
+		<where>
+			username = #{demo2Bean.user_cd}
+		</where>
+		limit 1
+	</select>
+	
+	<insert id="addDemo2" ><!-- parameterType="java.util.List" -->
+		insert into users(id,insert_user,user_cd,user_name,email1,email2,dept_cd,dept_name) 
+		values 
+		<foreach collection="users" item="user" separator=",">
+			(#{user.id},#{user.insert_user},#{user.user_cd},#{user.user_name},#{user.email1},#{user.email2},#{user.dept_cd},#{user.dept_name})
+		</foreach>
+	</insert>
+	
+	<update id="updateDemo2">
+	</update>
+	
+	<delete id="deleteDemo2">
+		delete from dorm_inclusion;
+	</delete>
+	
+</mapper>

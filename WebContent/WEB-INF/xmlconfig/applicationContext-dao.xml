@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE beans PUBLIC      
+"-//SPRING//DTD BEAN//EN"     
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    
+    <!-- dao -->
+     
+    <bean id="userMutilDao" class="com.sys.dao.multidao.MultiDaoFactoryBean">
+        <property name="daoInterface" value="com.sys.dao.UserDao" />
+        <property name="daoTarget">
+            <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+                <property name="mapperInterface" value="com.sys.dao.UserDao" />
+                <property name="sqlSessionFactory" ref="sessionFactory" />
+            </bean>
+        </property>
+    </bean>
+    
+</beans>   
