@@ -61,7 +61,7 @@ public class Demo2Controller {
 		ModelAndView mv = new ModelAndView();
 
 		if (demo2Bean == null || !demo2Bean.getPasswd().equals(password)) {
-			mv.setViewName("demo2");
+			mv.setViewName("demo2");//mv.setViewName("redirect:demo2");
 			mv.addObject("errorMsg", "error");
 		} else {
 			mv.setViewName("demo2main");
