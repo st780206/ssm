@@ -18,43 +18,43 @@
 	A：使用 MethodInvokingJobDetailFactoryBean
 	这种方式在你想要调用特定 bean 的一个方法的时候很是方便，比另一种方法要简单的多。 -->
 	<!-- 作业配置简单调用了 myBean 的 printMessage 方法，myBean 是一个简单的 POJO。 -->
-	<bean id="simpleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
-	    <property name="targetObject" ref="myBean" />  
-	    <property name="targetMethod" value="printMessage" />  
-	</bean>
+<!-- 	<bean id="simpleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   -->
+<!-- 	    <property name="targetObject" ref="myBean" />   -->
+<!-- 	    <property name="targetMethod" value="printMessage" />   -->
+<!-- 	</bean> -->
 	
 	<!-- B：使用 JobDetailFactoryBean
 	如果你需要更高级的设置，需要给作业传递数据，想更加灵活的话就使用这种方式。 -->
 	<!-- jobClass 关联到一个继承自 QuartzJobBean 的类，它实现了 Quartz 作业接口。调用到这个作业的时候，它的 executeInternal 将被执行。
 	jobDataMap 允许我们给相关作业 bean 传递一些数据。在这个例子里，我们将 ScheduledJob 将要使用到的 'anotherBean' 传递给它。 -->
-	<bean name="firstComplexJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  
-	    <property name="jobClass" value="quartz2.scheduler.jobs.FirstScheduledJob" />  
-	    <property name="jobDataMap">
-	        <map>  
-	            <!-- <entry key="anotherBean" value-ref="anotherBean" /> -->
-	        </map>  
-	    </property>  
-	    <property name="durability" value="true" />  
-	</bean>
+<!-- 	<bean name="firstComplexJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">   -->
+<!-- 	    <property name="jobClass" value="quartz2.scheduler.jobs.FirstScheduledJob" />   -->
+<!-- 	    <property name="jobDataMap"> -->
+<!-- 	        <map>   -->
+<!-- 	            <entry key="anotherBean" value-ref="anotherBean" /> -->
+<!-- 	        </map>   -->
+<!-- 	    </property>   -->
+<!-- 	    <property name="durability" value="true" />   -->
+<!-- 	</bean> -->
 	
 	<!-- 触发器用来定义调度器何时将会执行你的调度任务的那个时间。有两种可能的触发器类型：
 	A：简单触发器，使用 SimpleTriggerFactoryBean
 	你可以定义作业的启动时间、触发器之间的延迟时间以及 repeatInterval(频率)。 -->
 	<!-- Run the job every 2 seconds with initial delay of 1 second -->  
-	<bean id="simpleTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
-	    <property name="jobDetail" ref="simpleJobDetail" />  
-	    <property name="startDelay" value="1000" />  
-	    <property name="repeatInterval" value="2000" />  
-	</bean>  
+<!-- 	<bean id="simpleTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">   -->
+<!-- 	    <property name="jobDetail" ref="simpleJobDetail" />   -->
+<!-- 	    <property name="startDelay" value="1000" />   -->
+<!-- 	    <property name="repeatInterval" value="2000" />   -->
+<!-- 	</bean>   -->
 	
 	<!-- B：计划触发器，使用 CronTriggerFactoryBean
 	这种类型更加灵活，允许你针对特定实例选择计划方案以及将来要执行的频率。 -->
 	<!-- Run the job every 5 seconds -->  
-	<bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
-	    <property name="jobDetail" ref="firstComplexJobDetail" />  
-	    <!--<property name="cronExpression" value="0/5 * * ? * SAT-SUN" />-->  
-	    <property name="cronExpression" value="0/5 * * ? * *" />  
-	</bean>
+<!-- 	<bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">   -->
+<!-- 	    <property name="jobDetail" ref="firstComplexJobDetail" />   -->
+<!-- 	    <property name="cronExpression" value="0/5 * * ? * SAT-SUN" />   -->
+<!-- 	    <property name="cronExpression" value="0/5 * * ? * *" />   -->
+<!-- 	</bean> -->
 	
 	
 	
